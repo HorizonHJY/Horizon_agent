@@ -17,4 +17,66 @@
 
 ---
 
-*Add more rules below. Each rule gets a number and a clear rationale.*
+## Rule 2: Read Before You Write
+
+Before starting any implementation or change in a directory, **first read the nearest README.md** that documents that module, function, or feature.
+
+- Horizon maintains a pattern of placing `README.md` files both at the project root AND inside individual subdirectories/modules when a feature needs local documentation or design rationale.
+- These READMEs serve as the **local design doc, changelog, or specification** for that component.
+- Do not assume you understand a module's intent until you've read its README.
+- If a directory has no README, check parent directories for context.
+
+**Why:** Avoids misinterpreting the purpose of a module and writing code that doesn't fit Horizon's intent.
+
+---
+
+## Rule 3: Commit Convention (Conventional Commits)
+
+Follow the **Conventional Commits** format derived from the `git-commit.skill` in Horisation:
+
+```
+<type>(<scope>): <summary>
+
+<body>
+<footer>
+```
+
+- **Summary line**: ≤ 72 characters, imperative mood
+- **Types**: `feat`, `fix`, `refactor`, `docs`, `style`, `test`, `chore`
+- **Scope**: primary module/component affected (short, 1-2 words)
+- **Body**: 2-4 sentences, concise, wraps at 72 chars
+- The dev log (`log.md` or similar) is the single source of truth for commit messages
+
+## Rule 4: Comments — Concise, Supplement with README
+
+- Keep code comments **brief and minimal** (言简意赅)
+- Detailed design rationale, architecture decisions, and usage notes go in **README.md** files (local or project-level)
+- Only write more comments when the function/module is **complex with many sub-parts**
+
+## Rule 5: Error Handling — Let It Crash
+
+Prefer the **let it crash** approach:
+
+- Don't over-engineer defensive checks for every edge case
+- Handle errors at natural boundaries (request handlers, service boundaries)
+- Don't pollute business logic with excessive try/except or if-nil checks
+
+## Rule 6: Type Annotations — Optional
+
+Python/TypeScript type annotations are **optional**:
+
+- Use them when it genuinely improves clarity or catches bugs
+- Don't require them everywhere
+
+## Rule 7: Testing — Case-by-Case
+
+Testing requirements are **situational**, not universal:
+
+- Critical paths, core business logic, and security-sensitive code should have tests
+- Simple CRUD, prototypes, or one-off scripts may not need tests
+- Horizon will decide what needs testing per task
+- If unsure, ask
+
+---
+
+*Rules are append-only. Add new ones as needed, keeping the numbering sequential.*
