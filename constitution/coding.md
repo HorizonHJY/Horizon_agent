@@ -68,14 +68,14 @@ Python/TypeScript type annotations are **optional**:
 - Use them when it genuinely improves clarity or catches bugs
 - Don't require them everywhere
 
-## Rule 7: Testing — Case-by-Case
+## Rule 7: Testing — Core Functions Must Be Tested
 
-Testing requirements are **situational**, not universal:
+Testing is not universal, but there's a hard rule:
 
-- Critical paths, core business logic, and security-sensitive code should have tests
-- Simple CRUD, prototypes, or one-off scripts may not need tests
-- Horizon will decide what needs testing per task
-- If unsure, ask
+- **Core / bottom-layer functions** — the ones that other functions depend on for correctness — **must have tests**.
+- If a function is wrong, it cascades and breaks many things above it → that's the bar.
+- Simple CRUD, prototypes, one-off scripts: no tests needed.
+- When unsure whether something needs tests, ask Horizon.
 
 ---
 
