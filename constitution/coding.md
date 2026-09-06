@@ -77,6 +77,16 @@ Testing is not universal, but there's a hard rule:
 - Simple CRUD, prototypes, one-off scripts: no tests needed.
 - When unsure whether something needs tests, ask Horizon.
 
+## Rule 8: Single Responsibility — Don't Embed Cross-Cutting Concerns in Business-Logic Functions
+
+A function that does one job (a task handler, a job processor, an API endpoint) should only do that job.
+
+- Don't inline unrelated periodic/orchestration concerns — scheduling, interruption handling, unrelated background maintenance — directly into a business-logic function's own loop.
+- If a function needs to "also check on other periodic tasks while it runs," that orchestration belongs in a separate layer or the caller, not inside the function itself.
+- This applies even when it's convenient to just import the scheduler and call it inline — convenience is not a reason to couple concerns.
+
+**Why:** Horizon flagged this as a repeated mistake he'd already called a halt on once before (see HJ_YYS `fucntions/cgw.py`, which had `InterruptibleScheduler` embedded directly in its challenge loop — cleaned up 2026-08-11). Mixing concerns makes functions harder to reason about, test, and reuse independently of whatever orchestration mechanism happens to wrap them.
+
 ---
 
 *Rules are append-only. Add new ones as needed, keeping the numbering sequential.*
